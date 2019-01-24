@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import {
@@ -10,48 +10,66 @@ import {
   CardHeader,
   CardMedia,
   Divider,
-  Grid, 
+  Grid,
+  Collapse
 } from "@material-ui/core/";
 import Avatar from "./Avatar";
 import "typeface-roboto";
+import { KeyboardArrowDown, KeyboardArrowRight } from "@material-ui/icons";
+import { IconButton } from "@material-ui/core";
 const styles = {
   card: {
+    transition: "all 1s ease",
     minWidth: 275,
+    maxWidth: 300,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    margin: 20,
+    margin: 20
   },
   media: {
     width: 150,
     padding: "50%"
   },
+  memberContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    flexWrap: "wrap",
+  }
 };
 function BookClubCard(props) {
+  const [extended, setExtended] = useState(false);
   const { classes } = props;
+  const { name, currentBookImage, members } = props.club;
+  const handleClick = () => {
+    setExtended(!extended);
+  };
   return (
     <Card className={classes.card}>
-      <CardHeader title="Book Club #1" />
+      <CardHeader title={name} />
       <div className={classes.cover}>
-        <img src="http://books.google.com/books/content?id=2xAjuzPZHgMC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" />
+        <img alt="" src={currentBookImage} />
       </div>
       <CardContent>
-        <Typography component="p">Members</Typography>
-        <Divider />
-        <Grid container spacing={12}>
-          <Grid className={classes.gridItem} item xs={3}>
-            <Avatar name={"Eric"} />
-          </Grid>
-          <Grid className={classes.gridItem} item xs={3}>
-            <Avatar name={"So"} />
-          </Grid>
-          <Grid className={classes.gridItem} item xs={3}>
-            <Avatar name={"Eric"} />
-          </Grid>
-          <Grid className={classes.gridItem} item xs={3}>
-            <Avatar name={"So"} />
-          </Grid>
-        </Grid>
+        <Typography
+          style={{ marginRight: 150, display: "inline" }}
+          component="p"
+          variant="p"
+        >
+          Members
+        </Typography>
+        <IconButton onClick={handleClick} size="small">
+          {" "}
+          {extended ? <KeyboardArrowDown /> : <KeyboardArrowRight />}
+        </IconButton>
+        <Collapse in={extended}>
+        <div className={classes.memberContainer}>
+          {members.map((member, index) => {
+            return <Avatar key={index} name={member} />;
+          })}
+        </div>
+        </Collapse>
       </CardContent>
     </Card>
   );

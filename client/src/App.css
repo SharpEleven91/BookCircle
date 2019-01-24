@@ -30,3 +30,12 @@
     transform: rotate(360deg);
   }
 }
+
+@keyframes extend {
+  from {
+    height: 65;
+  }
+  to {
+    height: auto;
+  }
+}
