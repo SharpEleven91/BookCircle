@@ -41,13 +41,13 @@ const styles = {
 function BookClubCard(props) {
   const [extended, setExtended] = useState(false);
   const { classes } = props;
-  const { name, currentBookImage, members } = props.club;
+  const { name, currentBookImage, members } = props;
   const handleClick = () => {
     setExtended(!extended);
   };
   return (
     <Card className={classes.card}>
-      <CardHeader title={name} />
+      <CardHeader data-testid="club-title" title={name} />
       <div className={classes.cover}>
         <img alt="" src={currentBookImage} />
       </div>
@@ -55,16 +55,15 @@ function BookClubCard(props) {
         <Typography
           style={{ marginRight: 150, display: "inline" }}
           component="p"
-          variant="p"
         >
           Members
         </Typography>
-        <IconButton onClick={handleClick} size="small">
+        <IconButton onClick={handleClick} data-testid="members-button" size="small">
           {" "}
           {extended ? <KeyboardArrowDown /> : <KeyboardArrowRight />}
         </IconButton>
         <Collapse in={extended}>
-        <div className={classes.memberContainer}>
+        <div data-testid="members" className={classes.memberContainer}>
           {members.map((member, index) => {
             return <Avatar key={index} name={member} />;
           })}
@@ -76,7 +75,10 @@ function BookClubCard(props) {
 }
 
 BookClubCard.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  currentBookImage: PropTypes.string.isRequired,
+  members: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default withStyles(styles)(BookClubCard);

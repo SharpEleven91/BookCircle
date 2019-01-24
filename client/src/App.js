@@ -26,14 +26,7 @@ export default function App(props) {
   const { classes } = props;
   return (
     <div style={style} className="bookClubContainer">
-      <BookClubCard club={{...testPropsOne}}/>
-      <BookClubCard club={{...testPropsTwo}}/>
-      <BookClubCard club={{...testPropsOne}}/>
-      <BookClubCard club={{...testPropsTwo}}/>
-      <BookClubCard club={{...testPropsOne}}/>
-      <BookClubCard club={{...testPropsTwo}}/>
-      <BookClubCard club={{...testPropsOne}}/>
-      <BookClubCard club={{...testPropsTwo}}/>
+      <BookClubCard name={testPropsOne.name} currentBookImage={testPropsOne.currentBookImage} members={testPropsOne.members}/>
     </div>
   );
 }

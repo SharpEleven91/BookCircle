@@ -18,7 +18,7 @@ function Avatar(props) {
   const { classes } = props;
   const name = props.name[0];
   return (
-      <Av style={{backgroundColor: color}} className={classes.avatar}>{name}</Av>
+      <Av  data-testid="member" style={{backgroundColor: color}} className={classes.avatar}>{name}</Av>
   );
 }
 
